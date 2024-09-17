@@ -25,7 +25,7 @@ define root view entity ZI_DLRAP_CERTIFPRODUCT
       CertTuev,
       @Semantics.systemDateTime.localInstanceLastChangedAt: true
       LocalLastChangedAt,
-
+      'sap-icon://accounting-document-verification' as Icon,
       _Stats,
       _Prod
 }
