@@ -16,7 +16,7 @@ define view entity ZI_DLRAP_CERTIFSTPRODUCT
   key StateUuid,
       CertUuid,
       Matnr,
-      _Prod.Description,
+      _Prod.Description as Description,
       Version,
       Status,
       StatusOld,

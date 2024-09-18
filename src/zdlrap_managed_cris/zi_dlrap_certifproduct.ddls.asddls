@@ -15,7 +15,7 @@ define root view entity ZI_DLRAP_CERTIFPRODUCT
 {
   key CertUuid,
       Matnr,
-      _Prod.Description,
+      _Prod.Description                             as Description,
       Version,
       CertStatus,
       CertCe,
@@ -26,6 +26,7 @@ define root view entity ZI_DLRAP_CERTIFPRODUCT
       @Semantics.systemDateTime.localInstanceLastChangedAt: true
       LocalLastChangedAt,
       'sap-icon://accounting-document-verification' as Icon,
+
       _Stats,
       _Prod
 }
