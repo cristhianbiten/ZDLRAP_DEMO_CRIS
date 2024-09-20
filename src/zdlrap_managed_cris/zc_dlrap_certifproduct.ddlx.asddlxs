@@ -44,8 +44,14 @@ annotate entity ZC_DLRAP_CERTIFPRODUCT with
   CertUuid;
 
   @UI.selectionField: [{ position: 20 }]
-  @UI.identification: [{ position: 20 }]
-  @UI.lineItem: [{ position: 20 }]
+  @UI.identification: [{ position: 20 },
+                       { type: #FOR_ACTION, dataAction: 'NewVersion', label: 'Nova Versão' },
+                       { type: #FOR_ACTION, dataAction: 'ActiveVersion', label: 'Ativar Versão' },
+                       { type: #FOR_ACTION, dataAction: 'InactiveVersion', label: 'Inativar Versão' }
+                      ]
+  @UI.lineItem: [{ position: 20 },
+                 { type: #FOR_ACTION, dataAction: 'NewVersion', label: 'Nova Versão' }
+                ]
   @EndUserText.label: 'Material'
   Matnr;
 
