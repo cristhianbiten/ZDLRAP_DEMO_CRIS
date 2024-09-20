@@ -3,8 +3,12 @@ CLASS lhc_Certificate DEFINITION INHERITING FROM cl_abap_behavior_handler.
 
     METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
       IMPORTING keys REQUEST requested_authorizations FOR Certificate RESULT result.
+
     METHODS setinitialvalues FOR DETERMINE ON MODIFY
       IMPORTING keys FOR certificate~setinitialvalues.
+
+    METHODS checkmaterial FOR VALIDATE ON SAVE
+      IMPORTING keys FOR certificate~checkmaterial.
 
 ENDCLASS.
 
@@ -17,7 +21,7 @@ CLASS lhc_Certificate IMPLEMENTATION.
 
     READ ENTITIES OF zi_dlrap_certifproduct IN LOCAL MODE
         ENTITY Certificate
-        FIELDS ( CertStatus )
+        ALL FIELDS
         WITH CORRESPONDING #( keys )
         RESULT DATA(lt_certificates).
 
@@ -70,6 +74,40 @@ CLASS lhc_Certificate IMPLEMENTATION.
 
       ENDLOOP.
     ENDIF.
+
+  ENDMETHOD.
+
+  METHOD checkMaterial.
+
+    READ ENTITIES OF zi_dlrap_certifproduct IN LOCAL MODE
+      ENTITY Certificate
+      FIELDS ( Matnr )
+      WITH CORRESPONDING #( keys )
+      RESULT DATA(lt_certificates).
+
+    CHECK lt_certificates IS NOT INITIAL.
+
+    SELECT *
+        FROM zi_dlrap_product
+        INTO TABLE @DATA(lt_material).
+
+    LOOP AT lt_certificates INTO DATA(ls_certificates).
+      IF ls_certificates-Matnr IS INITIAL OR NOT
+         line_exists( lt_material[ Matnr = ls_certificates-Matnr ] ).
+
+        APPEND VALUE #( %tky = ls_certificates-%tky ) TO failed-certificate.
+
+        APPEND VALUE #(  %tky        = ls_certificates-%tky
+                         %state_area = 'MATERIAL_UNKNOWN'
+                         %msg        = NEW zcx_dlrap_certificate(
+                                        severity    = if_abap_behv_message=>severity-error
+                                        textid      = zcx_dlrap_certificate=>material_unknown
+                                        attr1       = CONV #( ls_certificates-Matnr ) )
+                      ) TO reported-certificate.
+
+
+      ENDIF.
+    ENDLOOP.
 
   ENDMETHOD.
 

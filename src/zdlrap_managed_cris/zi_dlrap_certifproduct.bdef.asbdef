@@ -25,6 +25,8 @@ authorization master ( instance )
 
   determination setInitialValues on modify { create; }
 
+  validation checkMaterial on save { field Matnr; create; update; }
+
   field ( numbering : managed, readonly ) CertUUID;
   field ( readonly ) Description, Version;
   field ( mandatory ) Matnr;
