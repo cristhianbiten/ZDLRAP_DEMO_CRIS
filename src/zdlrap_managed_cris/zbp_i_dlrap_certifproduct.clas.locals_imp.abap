@@ -26,12 +26,51 @@ CLASS lhc_Certificate DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS newversion FOR MODIFY
       IMPORTING keys FOR ACTION certificate~newversion RESULT result.
 
+    METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
+      IMPORTING REQUEST requested_authorizations FOR certificate RESULT result.
+
 ENDCLASS.
 
 CLASS lhc_Certificate IMPLEMENTATION.
 
   METHOD get_instance_authorizations.
+
+    READ ENTITIES OF zi_dlrap_certifproduct IN LOCAL MODE
+      ENTITY Certificate
+      FIELDS ( Version )
+      WITH CORRESPONDING #( keys )
+      RESULT DATA(lt_certificates).
+
+    CHECK lt_certificates IS NOT INITIAL.
+
+    LOOP AT lt_certificates INTO DATA(ls_certificates).
+
+      APPEND VALUE #( LET upd_auth = COND #( WHEN ls_certificates-Version = 2
+                                              THEN if_abap_behv=>auth-unauthorized
+                                             ELSE if_abap_behv=>auth-allowed )
+                          del_auth = if_abap_behv=>auth-unauthorized
+                      IN
+                       %tky                   = ls_certificates-%tky
+                       %update                = upd_auth
+                       %action-Edit           = upd_auth
+                       %action-NewVersion     = upd_auth
+                       %delete                = del_auth
+                    ) TO result.
+
+    ENDLOOP.
+
   ENDMETHOD.
+
+  METHOD get_global_authorizations.
+
+    " Se o usuário estiver tentando criar nova versão...
+*    IF requested_authorizations-%action-NewVersion = if_abap_behv=>mk-on.
+*      " Deve-se fazer o Authority Check aqui
+*      result-%action-NewVersion = if_abap_behv=>auth-unauthorized.
+*    ENDIF.
+
+  ENDMETHOD.
+
 
   METHOD setInitialValues.
 
