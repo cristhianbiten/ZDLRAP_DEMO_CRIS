@@ -1,0 +1,4 @@
+@EndUserText.label: 'Ui - Voos'
+define service ZUIDLRAP_FLIGHT {
+  expose ZC_FLIGHT_COMPLETE;
+}
