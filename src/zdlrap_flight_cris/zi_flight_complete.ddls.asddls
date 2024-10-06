@@ -25,15 +25,15 @@ define root view entity ZI_FLIGHT_COMPLETE
       Status,
       _Stats.Description                 as StatusDescription,
 
-//      //    Icone
-//      @Semantics.imageUrl: true
-//      case when Status = 1 then 'sap-icon://lateness'
-//           when Status = 2 then 'sap-icon://accept'
-//           else 'sap-icon://decline' end as Icon,
-//
-//      case when Status = 1 then 0
-//           when Status = 2 then 3
-//           else 1 end                    as Criticality,
+      //      //    Icone
+      @Semantics.imageUrl: true
+      case when Status = 1 then 'sap-icon://lateness'
+           when Status = 2 then 'sap-icon://accept'
+           else 'sap-icon://decline' end as Icon,
+
+      case when Status = 1 then 0
+           when Status = 2 then 3
+           else 1 end                    as Criticality,
 
       _Stats,
       _CityFrom,

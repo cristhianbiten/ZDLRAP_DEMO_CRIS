@@ -68,5 +68,6 @@ CLASS zclc_flight_cris IMPLEMENTATION.
 
     out->write( 'Dados Inseridos com sucesso!' ).
 
+
   ENDMETHOD.
 ENDCLASS.

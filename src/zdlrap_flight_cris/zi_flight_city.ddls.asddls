@@ -10,6 +10,8 @@
 define view entity ZI_FLIGHT_CITY
   as select from zdl_flight_city
 {
+      @EndUserText.label: 'Cidade'
   key id          as Id,
+      @EndUserText.label: 'Descrição'
       description as Description
 }

@@ -7,9 +7,12 @@
     sizeCategory: #S,
     dataClass: #MIXED
 }
+@ObjectModel.resultSet.sizeCategory: #XS
 define view entity ZI_FLIGHT_STATUS
   as select from zdl_flight_stat
 {
+      @EndUserText.label: 'Status'
   key id          as Id,
+      @EndUserText.label: 'Descrição'
       description as Description
 }
