@@ -1,0 +1,19 @@
+@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Basic - Item Ordem'
+@Metadata.ignorePropagatedAnnotations: true
+@ObjectModel.usageType:{
+    serviceQuality: #X,
+    sizeCategory: #S,
+    dataClass: #MIXED
+}
+define view entity ZI_ORDER_IT
+  as select from zdlrap_order_it
+{
+  key orderid       as Orderid,
+  key item          as Item,
+      product       as Product,
+      @Semantics.quantity.unitOfMeasure: 'UnityMeasure'
+      quantity      as Quantity,
+      unity_measure as UnityMeasure
+}
