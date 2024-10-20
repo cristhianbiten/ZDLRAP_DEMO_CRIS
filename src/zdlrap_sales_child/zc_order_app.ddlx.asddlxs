@@ -41,13 +41,13 @@ annotate entity ZC_ORDER_APP with
   @UI.lineItem: [{ position: 30  }]
   @UI.selectionField: [{ position: 30 }]
   @UI.identification: [{ position: 30 }]
-  @EndUserText.label: 'Vendedores'
+  @EndUserText.label: 'Vendedor'
   Vendor;
 
   @UI.lineItem: [{ position: 40  }]
   @UI.selectionField: [{ position: 40 }]
   @UI.identification: [{ position: 40 }]
-  @EndUserText.label: 'Empresas'
+  @EndUserText.label: 'Empresa'
   Company;
 
 }

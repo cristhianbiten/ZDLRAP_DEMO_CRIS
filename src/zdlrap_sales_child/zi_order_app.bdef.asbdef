@@ -1,0 +1,46 @@
+managed
+implementation in class zbp_i_order_app unique;
+strict ( 2 );
+
+define behavior for ZI_ORDER_APP alias Order
+persistent table zdlrap_order
+lock master
+authorization master ( instance )
+//etag master <field_name>
+{
+  create;
+  update;
+  delete;
+  field ( readonly, numbering : managed ) Orderid;
+  association _Items { create; }
+
+  mapping for zdlrap_order
+    {
+      Orderid  = orderid;
+      Vendor   = vendor;
+      Customer = customer;
+      Company  = company;
+    }
+
+}
+
+define behavior for ZI_ORDER_IT_APP alias Items
+persistent table zdlrap_order_it
+lock dependent by _Order
+authorization dependent by _Order
+early numbering
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly ) Orderid, Item, SalesPrice;
+  association _Order;
+
+  mapping for zdlrap_order_it
+    {
+      Orderid  = orderid;
+      Item     = item;
+      Product  = product;
+      Quantity = quantity;
+    }
+}
