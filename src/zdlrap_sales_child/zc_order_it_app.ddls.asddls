@@ -6,6 +6,7 @@ define view entity ZC_ORDER_IT_APP
 {
   key Orderid,
   key Item,
+      @ObjectModel.text.element: [ 'Description' ]
       Product,
       Description,
       Value,

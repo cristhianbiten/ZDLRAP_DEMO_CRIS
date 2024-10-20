@@ -50,5 +50,8 @@ CLASS zcl_order IMPLEMENTATION.
     ).
     MODIFY zdlrap_order_it FROM TABLE @lt_order_it.
 
+*    DELETE FROM zdlrap_products WHERE unity_measure = 'UN'.
+*    DELETE FROM zdlrap_order_it WHERE unity_measure = 'UN'.
+
   ENDMETHOD.
 ENDCLASS.

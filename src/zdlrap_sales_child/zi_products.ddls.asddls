@@ -15,7 +15,6 @@ define view entity ZI_PRODUCTS
       @Semantics.amount.currencyCode: 'Currency'
       value         as Value,
       currency      as Currency,
-      @Semantics.quantity.unitOfMeasure: 'UnityMeasure'
       quantity      as Quantity,
       unity_measure as UnityMeasure
 }

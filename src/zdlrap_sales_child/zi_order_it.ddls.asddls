@@ -13,7 +13,6 @@ define view entity ZI_ORDER_IT
   key orderid       as Orderid,
   key item          as Item,
       product       as Product,
-      @Semantics.quantity.unitOfMeasure: 'UnityMeasure'
       quantity      as Quantity,
       unity_measure as UnityMeasure
 }
